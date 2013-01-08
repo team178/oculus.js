@@ -13,8 +13,8 @@ The Image Analysis portion of the 2013 game, Ultimate Ascent is software designe
 calculate the distance and location of shooting targets on the field, given a camera
 image of retro reflective material bounding the targets.
 
-For more, see the [https://decibel.ni.com/content/docs/DOC-20173](Vision Targets White
-Paper) for a general idea.
+For more, see the [Vision Targets White Paper](https://decibel.ni.com/content/docs/DOC-20173)
+for a general idea.
 
 Setup and Configuration
 -----------------------
