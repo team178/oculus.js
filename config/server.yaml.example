@@ -1,2 +1,7 @@
 # Server connection
-port: 1780
+port: 178
+
+# camera
+camera:
+  ip: 10.1.78.11
+  url: axis-cgi/jpg/image.cgi
