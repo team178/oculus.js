@@ -1,0 +1,7 @@
+lowThresh: 0
+highThresh: 100
+nIters: 2
+maxArea: 2500
+
+GREEN: [0, 255, 0] # B, G, R
+WHITE: [255, 255, 255] # B, G, R
