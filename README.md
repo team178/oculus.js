@@ -1,6 +1,10 @@
 enforce.js
 ==========
 
+WARNING
+-------
+This new version does not compile. It uses a custom modified version of node-opencv. Please wait until this modification is pushed to the official npm package.
+
 What is this?
 -------------
 enforce.js is a server to process calculations for images taken on the field. It is

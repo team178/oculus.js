@@ -1,8 +1,7 @@
-var http = require('http');
+var vapix = require('vapix');
 var net  = require('net');
 var fs = require('fs');
 var cv = require('opencv');
-var vapix = require('vapix');
 
 require('js-yaml');
 
@@ -24,14 +23,15 @@ server.listen(settings.port, function() { //'listening' listener
 	console.log('server bound');
 });*/
 
-var image = fs.readFileSync('4.jpg');
+var image = fs.readFileSync('images/simple.jpg');
 
 cv.readImage(image, function(err, im) {
 
 	var big = new cv.Matrix(im.height(), im.width()); 
+	im.inRangeS(detection.withMod.lowerb.reverse(), detection.withMod.upperb.reverse());
+	im.save('inRangeS.jpg');
 
-	im.convertGrayscale();
-	im.save('./grayscale.jpg');
+	//im.convertGrayscale();
 	im_canny = im.copy();
 
 	im_canny.canny(detection.lowThresh, detection.highThresh);
@@ -40,10 +40,22 @@ cv.readImage(image, function(err, im) {
 	contours = im_canny.findContours();
 
 	for(i = 0; i < contours.size(); i++) {
-		if(contours.area(i) > detection.maxArea) {
-			big.drawContour(contours, i, detection.GREEN);
+		if (contours.area(i) > detection.maxArea) {
+			console.log(contours.boundingRect(i));
+			big.drawContour(contours, i, detection.RED);
+
+			var firstCorner =  [contours.boundingRect(i).x, contours.boundingRect(i).y];
+			var secondCorner = [contours.boundingRect(i).x + contours.boundingRect(i).width, contours.boundingRect(i).y];
+			var thirdCorner =  [contours.boundingRect(i).x, contours.boundingRect(i).y + contours.boundingRect(i).height];
+			var fourthCorner = [contours.boundingRect(i).x + contours.boundingRect(i).width, contours.boundingRect(i).y + contours.boundingRect(i).height]
+
+			big.line(firstCorner, secondCorner, detection.GREEN);
+			big.line(secondCorner, fourthCorner, detection.GREEN);
+			big.line(fourthCorner, thirdCorner, detection.GREEN);
+			big.line(thirdCorner, firstCorner, detection.GREEN);
+
 		}
 	}
 
-	big.save('./output.png');
+	big.save('./output.jpg');
 });
