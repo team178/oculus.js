@@ -65,6 +65,6 @@ browser.
 
 > http://localhost:1780/images/1.jpg
 
-Red: Outline of particle
-Green: Rectangle of the particle's boundaries
-Blue: Center of particle
+Red: Outline of particle  
+Green: Rectangle of the particle's boundaries  
+Blue: Center of particle  
