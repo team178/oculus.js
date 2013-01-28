@@ -1,2 +1,4 @@
+node_modules
 .project
 config/server.yaml
+config/thresholds.yaml

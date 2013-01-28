@@ -58,4 +58,13 @@ This is licensed [GPLv3](http://www.gnu.org/licenses/gpl.html).
 
 Status
 ------------
-Not ready
+Version 0.3 is a almost complete concept of what has been done. You can
+start the server and navigate to a file on the corresponding filesystem
+(from the repo dir) and it will appear in processed form in yoru web
+browser.
+
+> http://localhost:1780/images/1.jpg
+
+Red: Outline of particle
+Green: Rectangle of the particle's boundaries
+Blue: Center of particle
