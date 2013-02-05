@@ -22,11 +22,16 @@ exports.processImage = function processImage(im, thresholds) {
 			draw.drawBoundingRect(big, contours, i, thresholds.GREEN);
 
 			draw.drawCenter(big, contours, i, thresholds.BLUE, exports.getCenter);
+
+			return exports.getCenter(
+				contours.boundingRect(i).x,
+				contours.boundingRect(i).y,
+				contours.boundingRect(i).width,
+				contours.boundingRect(i).height
+			);
 		}
 	}
 
-	//big.save('./1.jpg');
-	return big.toBuffer();
 }
 
 /**
