@@ -19,20 +19,26 @@ exports.processImage = function processImage(im, thresholds) {
 	for(i = 0; i < contours.size(); i++) {
 		if (contours.area(i) > thresholds.maxArea) {
 
-			var previous = contours.boundingRect(i);
-
 			// Rename variable for ease of access
 			current = contours.boundingRect(i);
+
 
 			console.log(current);
 
 			// Remove double targets
-			if (exports.isInside( contours.boundingRect(i), previous) ) {
+			if (exports.isInsideAll(current, contours)) {
 				break;
 			}
 
+			
+
 			// Determine which target we're looking at
 			placement = exports.getRectangleScore(current.width, current.height);
+
+			// Store in middle2 if middle is already created
+			if ( targets[placement] != undefined && placement == 'middle') {
+				placement = 'middle2';
+			}
 
 			targets[placement] = exports.getCenter(
 				current.x,
@@ -106,11 +112,28 @@ exports.getRectangleScore = function getRectangleScore(width, height) {
  *
  */
 exports.isInside = function isInside(bigger, smaller) {
+
 	var smaller_topRight = smaller.x + smaller.width;
+	
 	var bigger_topRight = bigger.x + bigger.width;
 
-	if (bigger.x < smaller.x && Bigger_topRight > smaller_topRight) {
+	if ( (bigger.x < smaller.x) && (Bigger_topRight > smaller_topRight) ) {
+		console.log('hi');
 		return true;
+	} else {
+		console.log('bigger: ' + bigger.x);
+	}
+
+	return false;
+}
+
+exports.isInsideAll = function isInsideAll(current, all) {
+console.log(all);
+	for (var i = 0; i < all.length; i++) {
+		if (exports.isInside(all.boundingRect(i), current)) {
+			'^ he\'s inside';
+			return true;
+		}
 	}
 
 	return false;

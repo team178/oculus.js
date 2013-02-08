@@ -39,13 +39,18 @@ function start(settings, detection, thresholds) {
 exports.respond = function respond(res, targets) {
 	var response = '<style>body { background: #0B2799; color: yellow; } </style>' +
 	
-	'<p>Brandon and Travis son tostados de pan</p>';
+	'<p>Brandon is awesome</p>';
 
 	if (targets['top'] != undefined)
 		response = response + 'top: ' + targets['top'][0] + ', ' + targets['top'][1] + '<br />';
 
-	if (targets['middle'] != undefined)
+	if (targets['middle'] != undefined) {
 		response = response + 'middle: ' + targets['middle'][0] + ', ' + targets['middle'][1] + '<br />';
+	}
+	
+	if (targets['middle2'] != undefined) {
+		response = response + 'middle: ' + targets['middle2'][0] + ', ' + targets['middle2'][1] + '<br />';
+	}
 
 	if (targets['bottom'] != undefined)
 		response = response + 'bottom: ' + targets['bottom'][0] + ', ' + targets['bottom'][1] + '<br />';
