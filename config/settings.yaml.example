@@ -1,0 +1,35 @@
+# Team Number
+team: 178
+
+# Debug
+debug: true
+
+# Server connection
+port: 1780
+
+# camera
+camera:
+  ip: 10.1.78.11
+
+# Thresholds for processing
+lowThresh: 0
+highThresh: 100
+nIters: 2
+maxArea: 5000
+
+# B, G, R
+GREEN: [0,255,0]
+BLUE: [255,0,0]
+RED: [0,0,255]
+WHITE: [255,255,255]
+YELLOW: [0,255,255]
+
+# Boundaries without modified camera settings
+withoutMod:
+  lowerb: [140,243,240]
+  upperb: [246,255,255]
+
+# Boundaries with modified camera settings
+withMod:
+  lowerb: [0,255,0]
+  upperb: [0,255,0]

@@ -1,6 +1,6 @@
 {
   "name": "enforce.js",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "gluxon <gluxon@gluxon.com>",
   "description": "Image Analysis for the 2013 Competition season",
   "repository": {
@@ -10,7 +10,7 @@
   "dependencies" : {
     "js-yaml" : "1.0.x",
     "vapix"   : "0.1.0b1",
-    "opencv"  : "0.0.9"
+    "opencv"  : "0.0.10"
   },
   "license": "GPLv3",
   "engines": {

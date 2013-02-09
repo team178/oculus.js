@@ -1,7 +1,8 @@
 var vapix = require('vapix');
 var net = require('net');
-var http = require('http');
 var cv = require('opencv');
+var http = require('http');
+var fs = require('fs');
 
 var options = {
 	address: '10.1.78.11',
@@ -12,31 +13,44 @@ var options = {
 
 var camera = new vapix.Camera(options);
 
-function start(settings, detection, thresholds) {
+function start(settings, detection) {
+	if (settings.debug) {
+		createHTTPServer(settings, detection);
+	}
+
+	createTCPServer(settings, detection);
+}
+
+function createTCPServer(settings, detection) {
+	console.log('enforce.js: TCP server not implemented yet');
+}
+
+function createHTTPServer(settings, detection) {
 
 	var server = http.createServer(function(req, res) {
-		console.log('Server: client connected');
+		console.log('http: client connected');
 
-		camera.requestImage(function(data) {
-			cv.readImage(data, function(err, im) {
-				var targets = detection.processImage(im, thresholds);
+		//camera.requestImage(function(data) {
+		//fs.readFile('./images/4.jpg', function(err, data) {
+			cv.readImage('./' + req.url, function(err, im) {
+				var targets = detection.processImage(im, settings);
+
 				if (targets != undefined) {
-					exports.respond(res, targets);
+					respond(res, targets);
 				} else {
 					res.end('No center');
 				}
 			});
-		});
+		//});
 
 	});
 
 	server.listen(settings.port, function() { //'listening' listener
-		console.log('Server: bound to port ' + settings.port);
+		console.log('http: bound to port ' + settings.port);
 	});
-
 }
 
-exports.respond = function respond(res, targets) {
+function respond(res, targets) {
 	var response = '<style>body { background: #0B2799; color: yellow; } </style>' +
 	
 	'<p>Brandon is awesome</p>';
@@ -44,13 +58,11 @@ exports.respond = function respond(res, targets) {
 	if (targets['top'] != undefined)
 		response = response + 'top: ' + targets['top'][0] + ', ' + targets['top'][1] + '<br />';
 
-	if (targets['middle'] != undefined) {
+	if (targets['middle'] != undefined)
 		response = response + 'middle: ' + targets['middle'][0] + ', ' + targets['middle'][1] + '<br />';
-	}
-	
-	if (targets['middle2'] != undefined) {
-		response = response + 'middle: ' + targets['middle2'][0] + ', ' + targets['middle2'][1] + '<br />';
-	}
+
+	if (targets['middle_right'] != undefined)
+		response = response + 'middle: ' + targets['middle_right'][0] + ', ' + targets['middle_right'][1] + '<br />';
 
 	if (targets['bottom'] != undefined)
 		response = response + 'bottom: ' + targets['bottom'][0] + ', ' + targets['bottom'][1] + '<br />';

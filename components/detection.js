@@ -1,61 +1,61 @@
 var cv = require('opencv');
 var draw = require('./draw');
 
-exports.processImage = function processImage(im, thresholds) {
+exports.processImage = function processImage(im, settings) {
 
 	var big = new cv.Matrix(im.height(), im.width());
 
-	im.inRange(thresholds.withMod.lowerb.reverse(), thresholds.withMod.upperb.reverse());
+	im.inRange(settings.withMod.lowerb.reverse(), settings.withMod.upperb.reverse());
 
 	im_canny = im.copy();
 
-	im_canny.canny(thresholds.lowThresh, thresholds.highThresh);
-	im_canny.dilate(thresholds.nIters);
+	im_canny.canny(settings.lowThresh, settings.highThresh);
+	im_canny.dilate(settings.nIters);
 
 	contours = im_canny.findContours();
 
 	var targets = [];
 
 	for(i = 0; i < contours.size(); i++) {
-		if (contours.area(i) > thresholds.maxArea) {
 
-			// Rename variable for ease of access
-			current = contours.boundingRect(i);
-
-
-			console.log(current);
-
-			// Remove double targets
-			if (exports.isInsideAll(current, contours)) {
-				break;
-			}
-
-			
-
-			// Determine which target we're looking at
-			placement = exports.getRectangleScore(current.width, current.height);
-
-			// Store in middle2 if middle is already created
-			if ( targets[placement] != undefined && placement == 'middle') {
-				placement = 'middle2';
-			}
-
-			targets[placement] = exports.getCenter(
-				current.x,
-				current.y,
-				current.width,
-				current.height
-			);
-
-			/* Enable for debugging
-			big.drawContour(contours, i, thresholds.RED);
-			draw.drawBoundingRect(big, contours, i, thresholds.GREEN);
-
-			draw.drawCenter(big, contours, i, thresholds.BLUE, exports.getCenter);
-			*/
-
-			
+		if (contours.area(i) < settings.maxArea) {
+			continue;
 		}
+
+		// Rename variable for ease of access
+		current = contours.boundingRect(i);
+
+		// Remove double targets picked up from canny dilation
+		if ( isInsideAny(current, contours) ) {
+			continue;
+		}
+
+		if (settings.debug) {
+			console.log(current);
+		}
+
+		// Determine which target we're looking at
+		placement = exports.getTargetPlacement(current.width, current.height);
+
+		// If we already have a middle, the second middle is the one on the right
+		if ( targets[placement] != undefined && placement == 'middle') {
+			placement = 'middle_right';
+		}
+
+		targets[placement] = exports.getCenter(
+			current.x,
+			current.y,
+			current.width,
+			current.height
+		);
+
+		/* Enable for debugging
+		big.drawContour(contours, i, settings.RED);
+		draw.drawBoundingRect(big, contours, i, settings.GREEN);
+
+		draw.drawCenter(big, contours, i, settings.BLUE, exports.getCenter);
+		*/
+
 	}
 
 	return targets;
@@ -78,25 +78,32 @@ exports.getCenter = function getCenter(x, y, width, height) {
 }
 
 /**
- * Calculate rectangle score of targets
+ * Find out which target we're looking at
  *
- *
+ * @param int width Width of rectangle
+ * @param int height Height of rectangle
+ * @return string Placement of target
  */
-exports.getRectangleScore = function getRectangleScore(width, height) {
-	var ratio = width / height;
+exports.getTargetPlacement = function getTargetPlacement(width, height) {
 
+	// Define the sizes of the targets. Adding 8 in. for 4 in. border tape.
 	var top_size = (54 + 8) / (12 + 8);
 	var mid_size = (54 + 8) / (21 + 8);
 	var bot_size = (29 + 8) / (24 + 8);
 
 	var expand = 1.5;
 
-	var top_low = top_size / expand;
+	// Expand the high threshold (captured image sizes from camera aren't perfect
 	var top_high = top_size * expand;
-	var mid_low = mid_size / expand;
 	var mid_high = mid_size * expand;
-	var bot_low = bot_size / expand;
 	var bot_high = bot_size * expand;
+
+	// Shrink the low threshold size
+	var top_low = top_size / expand;
+	var mid_low = mid_size / expand;
+	var bot_low = bot_size / expand;
+
+	var ratio = width / height;
 
 	if (ratio >= top_low && ratio <= top_high) {
 		return 'top';
@@ -108,30 +115,35 @@ exports.getRectangleScore = function getRectangleScore(width, height) {
 }
 
 /**
+ * Check if one image is inside another
  *
- *
+ * @param object bigger contour.boundingRect() object
+ * @param object smaller contour.boundingRect() object
+ * @return boolean
  */
-exports.isInside = function isInside(bigger, smaller) {
+function isInside(bigger, smaller) {
 
 	var smaller_topRight = smaller.x + smaller.width;
-	
 	var bigger_topRight = bigger.x + bigger.width;
 
-	if ( (bigger.x < smaller.x) && (Bigger_topRight > smaller_topRight) ) {
-		console.log('hi');
+	if ( (bigger.x < smaller.x) && (bigger_topRight > smaller_topRight) ) {
 		return true;
-	} else {
-		console.log('bigger: ' + bigger.x);
 	}
 
 	return false;
 }
 
-exports.isInsideAll = function isInsideAll(current, all) {
-console.log(all);
-	for (var i = 0; i < all.length; i++) {
-		if (exports.isInside(all.boundingRect(i), current)) {
-			'^ he\'s inside';
+/**
+ * Check if one image is inside another
+ *
+ * @param object current contour.boundingRect() object
+ * @param object all findContours() object
+ * @return boolean
+ */
+function isInsideAny(current, all) {
+
+	for (var i = 0; i < all.size(); i++) {
+		if (isInside(all.boundingRect(i), current)) {
 			return true;
 		}
 	}
