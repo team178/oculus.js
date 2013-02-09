@@ -1,6 +1,0 @@
-# Server connection
-port: 1780
-
-# camera
-camera:
-  ip: 10.1.78.11
