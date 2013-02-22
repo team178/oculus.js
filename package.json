@@ -1,8 +1,8 @@
 {
-  "name": "enforce.js",
+  "name": "oculus.js",
   "version": "0.4.0",
   "author": "gluxon <gluxon@gluxon.com>",
-  "description": "Image Analysis for the 2013 Competition season",
+  "description": "Vision Processing for the 2013 Competition season",
   "repository": {
     "type": "git",
     "url": "https://github.com/team178/enforce.js.git"

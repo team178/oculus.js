@@ -1,6 +1,6 @@
-# enforce.js
+# oculus.js
 
-enforce.js is an object tracking application designed to calculate positions
+oculus.js is a vision processing application designed to calculate positions
 of vision targets on the [FRC 2013 Ultimate Ascent](http://www.usfirst.org/roboticsprograms/frc/2013-game)
 playing field. This program creates a server to pass decimals back to the cRIO
 and uses [node-vapix](http://github.com/gluxon/node-vapix) for getting images
@@ -10,7 +10,7 @@ on a linux system co-processor, and communicates to the cRIO through a TCP
 socket on port 178. A Java ME IO client is in the works, and Team 178 would
 like to distribute this as a vision solution for all teams.
 
-## What is Object Tracking?
+## What is  Vision Processing?
 
 For the 2013 FRC game, software on the robot has the task of automatically
 positioning their wheels in-line with the frisbee/disk targets for shooting.
@@ -22,16 +22,16 @@ for a general idea.
 
 ## Setup and Configuration
 
-enforce.js requires at least Node.js 0.8. Please refer to [http://nodejs.org](http://nodejs.org)
+oculus.js requires at least Node.js 0.8. Please refer to [http://nodejs.org](http://nodejs.org)
 for the Node.js installation. Refer to the below terminal commands to get
-enforce.js running after setting up Node.js
+oculus.js running after setting up Node.js
 
 Note: This has only been tested on a debian system. Other systems will work,
 but operating specific instructions are not available.
 
-Clone enforce.js from Git
+Clone oculus.js from Git
 ```
-git clone https://github.com/team178/enforce.js
+git clone https://github.com/team178/oculus.js
 ```
 
 Install OpenCV (only on Ubuntu)
@@ -44,14 +44,14 @@ Install Node.js packages and dependencies
 npm install
 ```
 
-Start enforce.js with Node.js
+Start oculus.js with Node.js
 ```
-node enforce.js
+node oculus.js
 ```
 
 ## License
 
-enforce.js is distributed under the [MPL 2.0](http://www.mozilla.org/MPL/2.0/).
+oculus.js is distributed under the [MPL 2.0](http://www.mozilla.org/MPL/2.0/).
 If this does not work for you, please get in contact with us.
 
 ## Changelog
