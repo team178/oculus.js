@@ -1,3 +1,11 @@
+# Editor backup files
+*~
+
+# Node.js libraries and modules
 node_modules
+
+# Eclipse project info
 .project
+
+# Configuration
 config/settings.yaml
