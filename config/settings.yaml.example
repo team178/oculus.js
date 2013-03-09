@@ -13,6 +13,7 @@ camera:
   port: 80
   username: FRC
   password: FRC
+  resolution: [640, 480]
 
 # Thresholds for processing
 lowThresh: 0
