@@ -1,4 +1,4 @@
-function chooseTarget(targets) {
+exports.chooseTarget = function chooseTarget(targets) {
 	if (targets['top'] != undefined)
 		return targets['top'];
 
@@ -11,7 +11,10 @@ function chooseTarget(targets) {
 	return undefined;
 }
 
-function normalizeValues(target, resolution) {
+exports.normalizeValues = function normalizeValues(target, resolution) {
+	console.log(target);
+	console.log(resolution);
+
 	// Create range of 0 to 1
 	var normalized_x = target[0] / resolution[0];
 	var normalized_y = target[1] / resolution[1];

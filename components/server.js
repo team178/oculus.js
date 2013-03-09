@@ -21,13 +21,15 @@ function TCPServer(options) {
 }
 
 TCPServer.prototype.start = function() {
+	var self = this;
+
 	var server = net.createServer(function(socket) {
 		console.log('tcp: connected');
 		socket.on('end', function() {
 			console.log('tcp: disconneced');
 		});
 
-		//sendValue(sendValue());
+		self.sendValue(socket);
 
 	});
 
@@ -38,19 +40,23 @@ TCPServer.prototype.start = function() {
 	});
 }
 
-function sendValue(callback) {
+TCPServer.prototype.sendValue = function(socket) {
+	var self = this;
+
 	/*camera.requestImage(function(data) {*/
 	fs.readFile('./images/4.jpg', function call(err, data) {
 		cv.readImage(data, function(err, im) {
-			var targets = detection.processImage(im, settings);
+			var targets = self.detection.processImage(im, self.settings);
 
 			if (targets != undefined) {
-				var target = this.analysis.chooseTarget(targets);
-				var target_normalized = this.analysis.normalizeValues(target, settings.camera.resolution);
+				var target = self.analysis.chooseTarget(targets);
+				var target_normalized = self.analysis.normalizeValues(target, self.settings.camera.resolution);
+				console.log(target_normalized);
 
 				socket.write( target_normalized[0].toFixed(3) + ', ' + target_normalized[1].toFixed(3) );
-				callback();
+				self.sendValue(socket);
 			} else {
+				console.log('0');
 				socket.write('0');
 			}
 		});
