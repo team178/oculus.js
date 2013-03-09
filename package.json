@@ -8,7 +8,7 @@
     "url": "https://github.com/team178/enforce.js.git"
   },
   "dependencies" : {
-    "js-yaml" : "1.0.x",
+    "js-yaml" : "2.0.x",
     "vapix"   : "0.1.0",
     "opencv"  : "0.0.12"
   },
