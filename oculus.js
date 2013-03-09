@@ -1,16 +1,27 @@
+var vapix = require('vapix');
+
 // Custom
 var server = require('./components/server');
 var detection = require('./components/detection');
+var analysis = require('./components/analysis');
 
 require('js-yaml');
 
 var settings = require('./config/settings.yaml');
 
-if (settings.debug) {
-	console.log('enforce.js: Debug mode on');
-}
+var camera = new vapix.Camera({
+	address: settings.camera.ip,
+	port: settings.camera.port,
+	username: settings.camera.username,
+	password: settings.camera.password
+});
 
-server.start(settings, detection);
+server.start({
+	settings: settings,
+	camera: camera,
+	detection: detection,
+	analysis: analysis
+});
 
 // Dependency Injection Magic
 //

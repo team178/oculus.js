@@ -10,6 +10,9 @@ port: 1780
 # camera
 camera:
   ip: 10.1.78.11
+  port: 80
+  username: FRC
+  password: FRC
 
 # Thresholds for processing
 lowThresh: 0
