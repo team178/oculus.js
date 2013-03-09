@@ -10,7 +10,7 @@
   "dependencies" : {
     "js-yaml" : "1.0.x",
     "vapix"   : "0.1.0",
-    "opencv"  : "0.0.10"
+    "opencv"  : "0.0.12"
   },
   "license": "GPLv3",
   "engines": {
