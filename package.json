@@ -9,7 +9,7 @@
   },
   "dependencies" : {
     "js-yaml" : "1.0.x",
-    "vapix"   : "0.1.0b1",
+    "vapix"   : "0.1.0",
     "opencv"  : "0.0.10"
   },
   "license": "GPLv3",
