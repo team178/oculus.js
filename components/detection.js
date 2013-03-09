@@ -3,8 +3,6 @@ var draw = require('./draw');
 
 exports.processImage = function processImage(im, settings) {
 
-	var big = new cv.Matrix(im.height(), im.width());
-
 	im.inRange(settings.withMod.lowerb.reverse(), settings.withMod.upperb.reverse());
 
 	im_canny = im.copy();

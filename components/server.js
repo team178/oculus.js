@@ -43,7 +43,7 @@ TCPServer.prototype.start = function() {
 TCPServer.prototype.sendValue = function(socket) {
 	var self = this;
 
-	/*camera.requestImage(function(data) {*/
+	/*this.camera.requestImage(function(err, data) {*/
 	fs.readFile('./images/4.jpg', function call(err, data) {
 		cv.readImage(data, function(err, im) {
 			var targets = self.detection.processImage(im, self.settings);
