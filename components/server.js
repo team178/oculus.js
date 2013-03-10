@@ -14,10 +14,23 @@ function createTCPServer(options) {
 }
 
 function TCPServer(options) {
+	var self = this;
+
 	this.settings = options.settings;
 	this.camera = options.camera;
 	this.detection = options.detection;
 	this.analysis = options.analysis;
+
+	// Grab camera resolution
+	this.camera.getImageResolution(function(err, data) {
+		self.resolution = data;
+	});
+
+	this.mjpg = this.camera.createVideoStream({
+		resolution: self.settings.camera.resolution,
+		compression: self.settings.camera.compression,
+		fps: self.settings.camera.fps
+	});
 }
 
 TCPServer.prototype.start = function() {
@@ -25,12 +38,18 @@ TCPServer.prototype.start = function() {
 
 	var server = net.createServer(function(socket) {
 		console.log('tcp: connected');
+
+		self.mjpg.on('data', function(data) {
+			self.sendValue(data, socket);
+		});
+
 		socket.on('end', function() {
 			console.log('tcp: disconneced');
 		});
 
-		self.sendValue(socket);
-
+		socket.on('error', function() {
+			console.log('tcp: Socket error occured');
+		});
 	});
 
 	var port = this.settings.port;
@@ -40,26 +59,25 @@ TCPServer.prototype.start = function() {
 	});
 }
 
-TCPServer.prototype.sendValue = function(socket) {
+TCPServer.prototype.sendValue = function(data, socket) {
 	var self = this;
 
-	/*this.camera.requestImage(function(err, data) {*/
-	fs.readFile('./images/4.jpg', function call(err, data) {
-		cv.readImage(data, function(err, im) {
-			var targets = self.detection.processImage(im, self.settings);
+	cv.readImage(data, function(err, im) {
 
-			if (targets != undefined) {
-				var target = self.analysis.chooseTarget(targets);
-				var target_normalized = self.analysis.normalizeValues(target, self.settings.camera.resolution);
-				console.log(target_normalized);
+		// Read all targets
+		var targets = self.detection.processImage(im, self.settings);
 
-				socket.write( target_normalized[0].toFixed(3) + ', ' + target_normalized[1].toFixed(3) );
-				self.sendValue(socket);
-			} else {
-				console.log('0');
-				socket.write('0');
-			}
-		});
+		// Grab the one we like
+		var target = self.analysis.chooseTarget(targets);
+
+		// If a valid target is found, normalize and send coordinates
+		if (target != undefined) {
+			var target_normalized = self.analysis.normalizeValues(target, self.resolution);
+
+			socket.write( target_normalized[0].toFixed(3) + ', ' + target_normalized[1].toFixed(3) );
+		} else {
+			socket.write('not found');
+		}
 	});
 }
 

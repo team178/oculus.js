@@ -56,6 +56,16 @@ If this does not work for you, please get in contact with us.
 
 ## Changelog
 
+#### 0.5
+oculus.js now uses the Video Stream API released in a new version of node-vapix.
+Results are now parsed 30 times a second compared to a previous 7!
+
+On a sad note, the HTTP debug server has been removed as it is unneeded for now
+and increases maintenance. It may be restored in a later version.
+
+- Video Streaming API used for greater speed
+- HTTP debug server removed
+
 #### 0.4
 This version moves all yaml configuration files into one settings.yaml. A new
 debug mode has been added to that will enable the HTTP server. The HTTP response

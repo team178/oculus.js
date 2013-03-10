@@ -2,7 +2,7 @@
 team: 178
 
 # Debug
-debug: true
+debug: false
 
 # Server connection
 port: 1780
@@ -13,7 +13,9 @@ camera:
   port: 80
   username: FRC
   password: FRC
-  resolution: [640, 480]
+  resolution: 640x480
+  compression: 25
+  fps: 1
 
 # Thresholds for processing
 lowThresh: 0

@@ -41,10 +41,8 @@ exports.processImage = function processImage(im, settings) {
 		}
 
 		targets[placement] = exports.getCenter(
-			current.x,
-			current.y,
-			current.width,
-			current.height
+			current.x, current.y,
+			current.width, current.height
 		);
 
 		/* Enable for debugging
@@ -53,7 +51,6 @@ exports.processImage = function processImage(im, settings) {
 
 		draw.drawCenter(big, contours, i, settings.BLUE, exports.getCenter);
 		*/
-
 	}
 
 	return targets;
