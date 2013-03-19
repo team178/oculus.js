@@ -1,13 +1,13 @@
 # oculus.js
 
-oculus.js is a vision processing application designed to calculate positions
-of vision targets on the [FRC 2013 Ultimate Ascent](http://www.usfirst.org/roboticsprograms/frc/2013-game)
+oculus.js is a vision processing application designed to calculate the
+positions of vision targets on the [FRC 2013 Ultimate Ascent](http://www.usfirst.org/roboticsprograms/frc/2013-game)
 playing field. This program creates a server to pass decimals back to the cRIO
 and uses [node-vapix](http://github.com/gluxon/node-vapix) for getting images
 from the camera. [node-opencv](http://github.com/peterbraden/node-opencv) is
 then used to process and detect the centers of targets. It is designed to run
-on a linux system co-processor, and communicates to the cRIO through a TCP
-socket on port 178. A Java ME IO client is in the works, and Team 178 would
+on a linux system coprocessor, and communicates to the cRIO through a TCP
+socket on port 1780. A Java ME IO client is in the works, and Team 178 would
 like to distribute this as a vision solution for all teams.
 
 ## What is  Vision Processing?
