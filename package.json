@@ -12,7 +12,7 @@
     "vapix"   : "0.5.0",
     "opencv"  : "0.0.12"
   },
-  "license": "GPLv3",
+  "license": "MPL",
   "engines": {
     "node": ">=0.8"
   }
