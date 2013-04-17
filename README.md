@@ -30,23 +30,27 @@ Note: This has only been tested on a debian system. Other systems will work,
 but operating specific instructions are not available.
 
 Clone oculus.js from Git
-```
-git clone https://github.com/team178/oculus.js
+
+``` bash
+$ git clone https://github.com/team178/oculus.js
 ```
 
 Install OpenCV (only on Ubuntu)
-```
-sudo apt-get install libcv-dev libopencv-dev libhighgui-dev
+
+``` bash
+$ sudo apt-get install libcv-dev libopencv-dev libhighgui-dev
 ```
 
 Install Node.js packages and dependencies
-```
-npm install
+
+``` bash
+$ npm install
 ```
 
 Start oculus.js with Node.js
-```
-node oculus.js
+
+``` bash
+$ node oculus.js
 ```
 
 ## License
