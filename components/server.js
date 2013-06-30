@@ -69,6 +69,9 @@ TCPServer.prototype.sendValue = function(data, socket) {
 
 		// Grab the one we like
 		var target = self.analysis.chooseTarget(targets);
+		
+		//Find distance from target
+		var distance = self.analysis.findDistance(target);
 
 		// If a valid target is found, normalize and send coordinates
 		if (target != undefined) {

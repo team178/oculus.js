@@ -1,3 +1,7 @@
+exports.findDistance = function findDistance(target) {
+	return target.height;
+}
+
 exports.chooseTarget = function chooseTarget(targets) {
 	if (targets['top'] != undefined)
 		return targets['top'];

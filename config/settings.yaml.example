@@ -16,6 +16,7 @@ camera:
   resolution: 640x480
   compression: 25
   fps: 1
+  metersPerPixel: 0.05 #Find using experimental value
 
 # Thresholds for processing
 lowThresh: 0
