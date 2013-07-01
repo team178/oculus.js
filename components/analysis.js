@@ -1,5 +1,5 @@
-exports.findDistance = function findDistance(target, metersPerPixel, settings) {
-	var distanceHypotenuse = target.height * metersPerPixel;
+exports.findDistance = function findDistance(target, inchesPerPixel, settings) {
+	var distanceHypotenuse = target.height * inchesPerPixel;
 	return Math.sqrt(Math.pow(distanceHypotenuse, 2) - Math.pow(settings.targets.high.height, 2));
 }
 
