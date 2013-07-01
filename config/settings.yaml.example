@@ -7,7 +7,7 @@ debug: false
 # Server connection
 port: 1780
 
-# camera
+# Camera
 camera:
   ip: 10.1.78.11
   port: 80
@@ -17,6 +17,24 @@ camera:
   compression: 25
   fps: 1
   metersPerPixel: 0.05 #Find using experimental value
+  
+# Target
+targets:
+  low:
+      height: 19
+    opening:
+      height: 24
+      width: 29
+  middle:
+      height: 88.625
+    opening:
+      height: 21
+      width: 54
+  high:
+    height: 104.125
+    opening:
+      height: 12
+      width: 54
 
 # Thresholds for processing
 lowThresh: 0

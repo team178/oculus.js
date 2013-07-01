@@ -71,13 +71,13 @@ TCPServer.prototype.sendValue = function(data, socket) {
 		var target = self.analysis.chooseTarget(targets);
 		
 		//Find distance from target
-		var distance = self.analysis.findDistance(target);
+		var distance = self.analysis.findDistance(target, self.settings);
 
 		// If a valid target is found, normalize and send coordinates
 		if (target != undefined) {
 			var target_normalized = self.analysis.normalizeValues(target, self.resolution);
 
-			socket.write( target_normalized[0].toFixed(3) + ', ' + target_normalized[1].toFixed(3) );
+			socket.write( target_normalized[0].toFixed(3) + ', ' + target_normalized[1].toFixed(3) + ', ' + distance);
 		} else {
 			socket.write('not found');
 		}
