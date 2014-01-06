@@ -1,43 +1,42 @@
-# oculus.js
+# Oculus.js
 
-oculus.js is a vision processing application designed to calculate the
-positions of vision targets on the [FRC 2013 Ultimate Ascent](http://www.usfirst.org/roboticsprograms/frc/2013-game)
-playing field. This program creates a server to pass decimals back to the cRIO
-and uses [node-vapix](http://github.com/gluxon/node-vapix) for getting images
+Oculus.js is a computer vision application designed for
+[FIRST Robotics Competition](http://en.wikipedia.org/wiki/FIRST_Robotics_Competition) games. This program creates a server to pass decimals back to the cRIO
+and uses [node-vapix](http://github.com/gluxon/node-vapix) to get images
 from the camera. [node-opencv](http://github.com/peterbraden/node-opencv) is
-then used to process and detect the centers of targets. It is designed to run
-on a linux system coprocessor, and communicates to the cRIO through a TCP
-socket on port 1780. A Java ME IO client is in the works, and Team 178 would
-like to distribute this as a vision solution for all teams.
+then used to process and analyze the center of targets. It is designed to run
+on a linux-based coprocessor, and communicates to the cRIO through a TCP
+socket on port `1780` (by default). A Java ME IO client is in the works.
 
 ## What is  Vision Processing?
 
-For the 2013 FRC game, software on the robot has the task of automatically
-positioning their wheels in-line with the frisbee/disk targets for shooting.
-The targets are framed with retro-reflective material to allow software to
-pick up these targets.
+For FRC games, software on the robot must autonomously modify their positioning
+to be inline with goals and score. These goals/targets are framed with
+retro-reflective material to allow software to pick up these targets.
 
-For more, see the [Vision Targets White Paper](https://decibel.ni.com/content/docs/DOC-20173)
+For more, see the
+[Vision Targets White Paper](https://decibel.ni.com/content/docs/DOC-20173)
 for a general idea.
 
 ## Setup and Configuration
 
-oculus.js requires at least Node.js 0.8. Please refer to [http://nodejs.org](http://nodejs.org)
-for the Node.js installation. Refer to the below terminal commands to get
-oculus.js running after setting up Node.js
+Oculus.js requires at least Node.js 0.10. Please refer to
+[http://nodejs.org](http://nodejs.org)
+for the Node.js installation. The below terminal commands are to help get
+Oculus.js running after setting up Node.js
 
 Note: This has only been tested on a debian system. Other systems will work,
-but operating specific instructions are not available.
+but these instructions are OS specific.
 
 Clone oculus.js from Git
 
-``` bash
+```bash
 $ git clone https://github.com/team178/oculus.js
 ```
 
 Install OpenCV (only on Ubuntu)
 
-``` bash
+```bash
 $ sudo apt-get install libcv-dev libopencv-dev libhighgui-dev
 ```
 
@@ -56,12 +55,29 @@ $ node oculus.js
 ## License
 
 oculus.js is distributed under the [MPL 2.0](http://www.mozilla.org/MPL/2.0/).
-If this does not work for you, please get in contact with us.
 
 ## Changelog
 
+#### 0.6
+Note: This version is dysfunctional and incomplete. The UDP server has not been
+finished yet. A finished 1.0 will be pushed out soon.
+
+Complete refactor with a rewrite of the majority of the core. This rewrite
+takes advantage of Node.js 0.10 streams2 for piping data between the image
+retrieval, image processing, image analysis, and server components of the code.
+It revives the HTTP server to provide live debugging and switches to using UDP
+(from TCP) for communicating data between.
+
+- Rewrite of:
+  - Image Analysis
+  - Image Processing
+  - UDP Server (incomplete)
+- Use new streams2 based mjpeg-consumer 0.3
+- Reintroduction of HTTP server for live debugging
+  - Uses mjpeg-server to serve an mjpeg of live processing results
+
 #### 0.5
-oculus.js now uses the Video Stream API released in a new version of node-vapix.
+Oculus.js now uses the Video Stream API released in a new version of node-vapix.
 Results are now parsed 30 times a second compared to a previous 7!
 
 On a sad note, the HTTP debug server has been removed as it is unneeded for now

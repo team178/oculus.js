@@ -1,0 +1,16 @@
+# Team Number
+teamID: 178
+
+# UDP Robot Server
+udp:
+  port: 1780
+
+# HTTP Debugging Server
+http:
+  port: 8080
+  hostname: 127.0.0.1
+
+# Debugging colors
+draw:
+  rectangle: [0,255,0] # Green
+  center: [0,0,255] # Red

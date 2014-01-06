@@ -1,0 +1,13 @@
+# Axis Camera
+
+# Connection
+ip: 10.1.78.11
+port: 80
+username: FRC
+password: FRC
+
+# Video Stream
+video:
+  resolution: 640x480
+  compression: 25
+  fps: 10

@@ -1,0 +1,22 @@
+# Thresholds for processing
+lowThresh: 0
+highThresh: 100
+nIters: 2
+
+# Color boundary setting to use
+profile: normal
+
+# Boundaries without modified camera settings
+normal:
+  lowerb: [140,243,240]
+  upperb: [246,255,255]
+
+# Boundaries with modified camera settings
+high_contrast:
+  lowerb: [0,255,0]
+  upperb: [0,255,0]
+
+# Testing against black and WHITE
+bw:
+  lowerb: [30, 30, 30]
+  upperb: [90, 90, 90]

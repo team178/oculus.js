@@ -1,0 +1,24 @@
+# Targets
+targets:
+  tape: 4 #in
+  low:
+    height: 19
+    opening:
+      width: 29
+      height: 24
+  middle:
+    height: 88.625
+    opening:
+      width: 54
+      height: 21
+  high:
+    height: 104.125
+    opening:
+      width: 54
+      height: 12
+
+# max area to choose from
+#  - This setting should actually not exist. It
+#    should be calculated from the target size
+#    information above.
+maxArea: 5000
