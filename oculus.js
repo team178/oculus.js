@@ -44,7 +44,9 @@ var processing = new Processing(settings.processing);
 var analysis = new Analysis(settings.game);
 
 // UDP Robot Server
-var robot = UDPServer.createServer(settings.udp.port);
+var robot = UDPServer.createServer(settings.udp.port, {
+  hostname: settings.udp.hostname
+});
 
 // HTTP Debugging
 var cockpit = HTTPServer.createServer({

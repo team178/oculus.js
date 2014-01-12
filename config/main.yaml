@@ -4,6 +4,7 @@ teamID: 178
 # UDP Robot Server
 udp:
   port: 1780
+  hostname: 127.0.0.1
 
 # HTTP Debugging Server
 http:
